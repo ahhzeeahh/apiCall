@@ -29,12 +29,25 @@
             }
             .container{
               height: 100vh;
+               max-width: 1320px;
             }
             .rows{
               display: flex;
               align-items: center;
             }
-
+            .testing{
+              background: aqua;
+              position: absolute;
+              right: 60px;
+              width: 55.66%;
+              height: 80vh;
+              overflow: hidden;
+            }
+           
+            .testing img{
+              position: relative;
+              object-fit: fill;
+            }
     </style>
 </head>
 <body>
@@ -70,19 +83,20 @@
         </div>
       </nav>-->
     <section class="container">
-    <div class="rows">
+    <div class="row m-5">
         <div class="col-4 intro">
             <h1>Hiya!</h1>
             <p class="lead">I’m <a href="https://github.com/ahhzeeahh" target="_blank">@ahhzeeahh</a>
                 👀 I’m interested in ...Design patterns, Bass fishin', VR/360 video, and Drone photography
                 🌱 I’m currently learning ... Javascript, Velocity, PHP and Wordpress backend development</p>
-                <button id="load">Load More...</button>
+                <a target="_blank" href="https://azizaobryant.com/experiance">View Work</a>
         </div>
         <div class="col-8">
-             <div  id="art" class="latest-data-item">
-              <img id="api-img" src="">
+             <div  id="art" class="latest-data-item testing">
+              <img id="api-img" src="https://www.artic.edu/iiif/2/3b2866b5-2b4d-871f-3a61-33178831b0ec/full/843,/0/default.jpg">
               <h3 id="api-title">Title to get deleted</h3>
               <p id="subhead">info to get deleted</p>
+            
             </div>
        </div>
     </div>
