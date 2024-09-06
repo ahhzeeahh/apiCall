@@ -38,7 +38,7 @@ fetch(url)
         }
 
 
-        document.querySelector("button").addEventListner( "click", changeItem)
+        document.querySelector("#btn").addEventListner("click", changeItem())
     })
     
     .catch((error) => {
