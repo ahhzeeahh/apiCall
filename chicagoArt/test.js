@@ -4,6 +4,9 @@ var apiImg = document.querySelector("#api-img");
 var subhead = document.querySelector("#subhead");
 var apiTitle = document.querySelector("#api-title");
 var art = document.querySelector("#art");
+var btn = document.querySelector(".bi-arrow-clockwise");
+
+
   
 
 
@@ -16,12 +19,24 @@ fetch(url)
   })
   .then(data => {
     let starter = data.data
-    console.log (starter[10].is_public_domain)
-
+  
     const newArr = starter.filter((artCol) => artCol.is_public_domain == true);
 
-let numb = Math.floor(Math.random() * newArr.length)
-console.log(numb)
+    function changeImage() {
+      let randomIndex = Math.floor(Math.random() * newArr.length);
+      let post = newArr[randomIndex];
+
+      let imgSrc =  "https://www.artic.edu/iiif/2/" + post.image_id + "/full/843,/0/default.jpg";
+      
+      apiImg.setAttribute("src", imgSrc);
+      
+       subhead.textContent = post.artist_title
+
+       apiTitle.textContent  =  post.title
+  
+    }
+
+    btn.addEventListener("click", changeImage);
 
   })
   .catch(error => {

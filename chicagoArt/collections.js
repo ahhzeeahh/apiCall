@@ -34,11 +34,11 @@ fetch(url)
 
         function changeItem() {
 
-          console.log('hi')
+          console.log(x)
         }
 
 
-        document.querySelector("#btn").addEventListner("click", changeItem())
+        //document.querySelector("#btn").addEventListner("click", changeItem())
     })
     
     .catch((error) => {

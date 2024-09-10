@@ -39,6 +39,21 @@
               display: flex;
               align-items: center;
             }
+            
+            @keyframes fadeIn {  
+            from {  
+                opacity:0;  
+            }  
+
+            to {  
+                opacity:1;  
+            }  
+}
+            .artcol img{
+              transition: 0.2s;
+              animation: fadeIn 2s ease-in; 
+
+            }
             /*.testing{
               background: aqua;
               position: absolute;
@@ -91,7 +106,7 @@
                 🌱 I’m currently learning ... Javascript, Velocity, PHP and Wordpress backend development</p>
 
         </div>
-        <div class="col-8">
+        <div class="col-8 artcol">
              <div  id="art" class="latest-data-item testing">
               <img id="api-img" src="https://www.artic.edu/iiif/2/3b2866b5-2b4d-871f-3a61-33178831b0ec/full/843,/0/default.jpg">
               <h3 id="api-title">Title to get deleted</h3>
@@ -105,9 +120,11 @@
     </div>
 
 </section>
-<footer>
-    <p style="text-align: center;">Back to <a href="https://azizaobryant.com">azizaobryant.com</a></p>
-    <script src="test.js"></script>
-</footer>
+
+
+   
+
+<script src="test.js"></script>
 </body>
+ 
 </html>
