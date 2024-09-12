@@ -20,8 +20,12 @@ fetch(url)
 
     const newArr = starter.filter((artCol) => artCol.is_public_domain == true);
 
-    let numb = Math.floor(Math.random() * newArr.length)
-    console.log(numb)
+    function changeImg(params) {
+
+      let x = Math.floor(Math.random() * newArr.leghth)
+      console.log(x)
+      
+    }
 
   })
   .catch(error => {
