@@ -51,10 +51,10 @@
               }
               .side{
                 writing-mode: vertical-lr;
-                  display: flex;
-                  flex-direction: row;
-                  align-items: center;
-                  gap: 1rem;
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                align-content: baseline;
 
               }
             .artcol{
@@ -63,12 +63,15 @@
               gap:20px;
             }
             .artcol img{
+              border-radius: .5rem;
               transition: 0.2s;
               animation: fadeIn 2s ease-in;
               height: 70vh;
-              width: 100%;
+              width: 60vw;
               overflow-y: hidden;
               object-fit: cover;
+              margin-bottom: 1rem;
+              box-shadow: 3px 5px 10px #00000036;
             }
             
             .bi{
@@ -79,8 +82,9 @@
           }
 
           .custom-logo{
-              width: 50px
+              width: 50px;
 }
+        
     </style>
 </head>
 <body>

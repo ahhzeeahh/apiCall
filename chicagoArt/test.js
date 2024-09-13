@@ -1,4 +1,4 @@
-let url = "https://api.artic.edu/api/v1/artworks?fields=id,image_id,title,artist_title,date_display,provenance_text,is_public_domain&limit=60"
+let url = "https://api.artic.edu/api/v1/artworks?fields=id,image_id,title,artist_title,date_display,provenance_text,is_public_domain&limit=100"
 
 var apiImg = document.querySelector("#api-img");
 var subhead = document.querySelector("#subhead");
@@ -19,17 +19,17 @@ fetch(url)
   })
   .then(data => {
     let starter = data.data
-  
-    const newArr = starter.filter((artCol) => artCol.is_public_domain == true);
+    let newArr = starter.filter((artCol) => artCol.is_public_domain == true && artCol.image_id != null);
 
     function changeImage() {
       let randomIndex = Math.floor(Math.random() * newArr.length);
       let post = newArr[randomIndex];
+      console.log(newArr)
 
       let imgSrc =  "https://www.artic.edu/iiif/2/" + post.image_id + "/full/843,/0/default.jpg";
       
       apiImg.setAttribute("src", imgSrc);
-      
+     
        subhead.textContent = post.artist_title
 
        apiTitle.textContent  =  post.title
