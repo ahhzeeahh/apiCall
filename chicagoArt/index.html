@@ -48,25 +48,32 @@
             to {  
                 opacity:1;  
             }  
-}
+              }
+              .side{
+                writing-mode: vertical-lr;
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  gap: 1rem;
+
+              }
+            .artcol{
+              display: flex;
+              align-items: center;
+              gap:20px;
+            }
             .artcol img{
               transition: 0.2s;
-              animation: fadeIn 2s ease-in; 
-
+              animation: fadeIn 2s ease-in;
+              height: 70vh;
+              width: 100%;
+              overflow-y: hidden;
+              object-fit: cover;
             }
-            /*.testing{
-              background: aqua;
-              position: absolute;
-              right: 60px;
-              width: 55.66%;
-              height: 80vh;
-              overflow: hidden;
+            
+            .bi{
+                  font-size: 2rem;
             }
-           
-            .testing img{
-              position: relative;
-              object-fit: fill;
-            }*/
             .odin-nav a{
               color: #753c44;
           }
@@ -97,7 +104,7 @@
     </div>
   </nav>
 
-    <section class="container">
+    <section class="">
     <div class="row m-5">
         <div class="col-4 intro">
             <h1>Hiya!</h1>
