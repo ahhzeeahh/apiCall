@@ -30,10 +30,8 @@ fetch(url)
       let imgSrc =  "https://www.artic.edu/iiif/2/" + post.image_id + "/full/843,/0/default.jpg";
       
       apiImg.setAttribute("src", imgSrc);
-     
-       subhead.textContent = post.artist_title
-
-       apiTitle.textContent  =  post.title
+      subhead.textContent = post.artist_title
+      apiTitle.textContent  =  post.title
   
     }
 

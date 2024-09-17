@@ -34,7 +34,7 @@ fetch(url)
 
         function changeItem() {
 
-          console.log(x)
+          apiImg.toggle() = "show"
         }
 
 
