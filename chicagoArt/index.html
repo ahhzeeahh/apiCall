@@ -39,26 +39,52 @@
               display: flex;
               align-items: center;
             }
-            /*.testing{
-              background: aqua;
-              position: absolute;
-              right: 60px;
-              width: 55.66%;
-              height: 80vh;
-              overflow: hidden;
+            
+            @keyframes fadeIn {  
+            from {  
+                opacity:0;  
+            }  
+
+            to {  
+                opacity:1;  
+            }  
+              }
+              .side{
+                writing-mode: vertical-lr;
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                align-content: baseline;
+
+              }
+            .artcol{
+              display: flex;
+              align-items: center;
+              gap:20px;
             }
-           
-            .testing img{
-              position: relative;
-              object-fit: fill;
-            }*/
+            .artcol img{
+              border-radius: .5rem;
+              transition: 0.2s;
+              animation: fadeIn 2s ease-in;
+              height: 70vh;
+              width: 60vw;
+              overflow-y: hidden;
+              object-fit: cover;
+              margin-bottom: 1rem;
+              box-shadow: 3px 5px 10px #00000036;
+            }
+            
+            .bi{
+                  font-size: 2rem;
+            }
             .odin-nav a{
               color: #753c44;
           }
 
           .custom-logo{
-              width: 50px
+              width: 50px;
 }
+        
     </style>
 </head>
 <body>
@@ -82,7 +108,7 @@
     </div>
   </nav>
 
-    <section class="container">
+    <section class="">
     <div class="row m-5">
         <div class="col-4 intro">
             <h1>Hiya!</h1>
@@ -91,12 +117,12 @@
                 🌱 I’m currently learning ... Javascript, Velocity, PHP and Wordpress backend development</p>
 
         </div>
-        <div class="col-8">
+        <div class="col-8 artcol">
              <div  id="art" class="latest-data-item testing">
               <img id="api-img" src="https://www.artic.edu/iiif/2/3b2866b5-2b4d-871f-3a61-33178831b0ec/full/843,/0/default.jpg">
               <h3 id="api-title">Title to get deleted</h3>
               <p id="subhead">info to get deleted</p>
-            </div>
+        </div>
             <div class="side">
             <i class="bi bi-arrow-clockwise"></i>
             <p class="invert"><em>Courtesy of The Art Institute of Chicago</em></p>
@@ -105,9 +131,11 @@
     </div>
 
 </section>
-<footer>
-    <p style="text-align: center;">Back to <a href="https://azizaobryant.com">azizaobryant.com</a></p>
-    <script src="collections.js"></script>
-</footer>
+
+
+   
+
+<script src="test.js"></script>
 </body>
+ 
 </html>
