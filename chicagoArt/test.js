@@ -6,7 +6,7 @@ var apiTitle = document.querySelector("#api-title");
 var art = document.querySelector("#art");
 var btn = document.querySelector(".bi-arrow-clockwise");
 
-
+//this branch is for Dell ONLY
   
 
 
@@ -21,6 +21,7 @@ fetch(url)
     let starter = data.data
     let newArr = starter.filter((artCol) => artCol.is_public_domain == true && artCol.image_id != null);
 
+    console.log(starter)
     function changeImage() {
       let randomIndex = Math.floor(Math.random() * newArr.length);
       let post = newArr[randomIndex];
