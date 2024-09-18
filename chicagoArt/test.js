@@ -3,10 +3,9 @@ let url = "https://api.artic.edu/api/v1/artworks?fields=id,image_id,title,artist
 var apiImg = document.querySelector("#api-img");
 var subhead = document.querySelector("#subhead");
 var apiTitle = document.querySelector("#api-title");
-var art = document.querySelector("#art");
+var atag = document.querySelector("#atag");
 var btn = document.querySelector(".bi-arrow-clockwise");
 
-//this branch is for Dell ONLY
   
 
 
@@ -25,10 +24,11 @@ fetch(url)
     function changeImage() {
       let randomIndex = Math.floor(Math.random() * newArr.length);
       let post = newArr[randomIndex];
-      console.log(newArr)
-
-      let imgSrc =  "https://www.artic.edu/iiif/2/" + post.image_id + "/full/843,/0/default.jpg";
+      console.log(post)
+      let aSrc = "https://www.artic.edu/artworks/" + post.id + "/"
+      let imgSrc =  "https://www.artic.edu/iiif/2/" + post.image_id + "/full/769,/0/default.jpg";
       
+      atag.setAttribute("href", aSrc);
       apiImg.setAttribute("src", imgSrc);
       subhead.textContent = post.artist_title
       apiTitle.textContent  =  post.title
