@@ -36,12 +36,14 @@ fetch(url)
 
       apiTitle.textContent = `"` + post.title + `"`
 
-      console.log("Col updated.");
+      apiImg.classList.add("animating")
+      setInterval(() => {apiImg.classList.remove("animating")}, 1500)
+      
     }
 
     btn.addEventListener("click", changeImage);
 
-    changeImage(); // Initial image
+    
     imageInterval = setInterval(changeImage, 10000); // Change image every 10 seconds
   })
   .catch((error) => {
