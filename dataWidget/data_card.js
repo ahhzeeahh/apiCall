@@ -1,5 +1,10 @@
 
-let url = "https://api.tnris.org/api/v1/collections_catalog?limit=5";
+let sel = document.querySelector("#optionSel")
+let url = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + sel.value;
+console.log(url)
+sel.addEventListener('change', function() {
+  location.reload();
+})
 
 fetch(url)
 
@@ -14,32 +19,35 @@ fetch(url)
 
 .then((data) => {
   let d = data.results
-  let previewImg = d[0].thumbnail_image 
-  let slider = document.querySelector("#js-img-insert");
+  var slider = document.querySelector("#js-img-insert");
 
-  
-
+ function getSlider() {
   d.forEach(e => {
     
     let dataCol = document.createElement("div");
-    let dataImg = document.createElement("img");
-    let dataLink = document.createElement("a");
-     dataCol.className = "carousel-item"
-     dataImg.className = "d-block w-100"
-    dataImg.setAttribute("src", e.thumbnail_image);
-    dataLink.setAttribute("href", "https://data.geographic.texas.gov/collection/?c=" +e.collection_id);
-    dataLink.setAttribute("target", "_blank");
-    dataCol.appendChild(dataLink); 
-    dataLink.appendChild(dataImg);  
-    slider.appendChild(dataCol);
-
-
+    dataCol.className = "carousel-item"
     
-  });
+
+    dataCol.innerHTML = `
+    <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
+      <img class="d-block w-100" src="${e.thumbnail_image}">
+      <div class="carousel-caption d-none d-md-block banner-bg">
+          <h5>${e.name}</h5>
+          <p>${e.acquisition_date.slice(0,4)}</p>
+        </div>
+    </a>
+    `;
+    slider.appendChild(dataCol);
+    });
   
   slider.firstElementChild.classList.add('active')
- 
-})
+ }  
+
+ getSlider();
+
+
+
+})//end of .then
 
 .catch(error => {
   console.log(error)
