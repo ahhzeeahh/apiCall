@@ -28,8 +28,13 @@ fetch(url)
      dataImg.className = "d-block w-100"
     dataImg.setAttribute("src", e.thumbnail_image);
     dataLink.setAttribute("href", "https://data.geographic.texas.gov/collection/?c=" +e.collection_id);
+    dataLink.setAttribute("target", "_blank");
+    dataCol.appendChild(dataLink); 
+    dataLink.appendChild(dataImg);  
+    slider.appendChild(dataCol);
+
+
     
-    dataLink.appendChild(dataImg); dataCol.appendChild(dataImg); slider.appendChild(dataCol);
   });
   
   slider.firstElementChild.classList.add('active')
