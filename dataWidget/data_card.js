@@ -16,29 +16,28 @@ fetch(url)
   let d = data.results
   let previewImg = d[0].thumbnail_image 
   let slider = document.querySelector("#js-img-insert");
-  document.querySelector("#dataImg").setAttribute("src", previewImg)
-  document.querySelector("#dataCardTitle").setAttribute("src", previewImg)
-  console.log(previewImg)
+
+  
 
   d.forEach(e => {
     
     let dataCol = document.createElement("div");
-    dataCol.classList("carousel-item")
     let dataImg = document.createElement("img");
-
-    e.thumbnail_image.setAttribute("src", dataImg);
-    dataImg.classList("d-block w-100")
-
-
-
-    slider.appendChild(dataCol);
+    let dataLink = document.createElement("a");
+     dataCol.className = "carousel-item"
+     dataImg.className = "d-block w-100"
+    dataImg.setAttribute("src", e.thumbnail_image);
+    dataLink.setAttribute("href", "https://data.geographic.texas.gov/collection/?c=" +e.collection_id);
+    
+    dataLink.appendChild(dataImg); dataCol.appendChild(dataImg); slider.appendChild(dataCol);
   });
   
+  slider.firstElementChild.classList.add('active')
  
 })
 
 .catch(error => {
-  console.warning(error)
+  console.log(error)
   
 })
 
