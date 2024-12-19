@@ -3,9 +3,12 @@
 <head>
   <style>
   .loading{
+    overflow: hidden;
     background: no-repeat; 
-    background-image: url('https://blog.teamtreehouse.com/wp-content/uploads/2015/05/InternetSlowdown_Day.gif');
-    height: 300px;
+    object-fit: contain;
+    object-position: center;
+    background-image: url('https://i.giphy.com/uIJBFZoOaifHf52MER.webp');
+    height: 250px;
     background-position: center;
   }
   .banner-bg{
@@ -15,6 +18,7 @@
     left: 0 !important;
     bottom: 0 !important;
     }
+    
   
 </style>
     
@@ -26,30 +30,35 @@
 </head>
 
 <body>
-    <h2 class="">TxGIO Data Collections</h2>
-        <div class="card w-25 loading">   
+    
+        <div class="card w-25">  
+          <h2 class="m-0 text-center alert-primary"> TxGIO Data Collections</h2>
           <select id="optionSel" class="form-select" aria-label="Default select is Newest">
             <option value="-acquisition_date">Newest</option>
             <option value="acquisition_date">Oldest</option>
             <option value="name">A-Z</option>
             <option value="-name">Z-A</option>
           </select>
-
-            <div id="dataslider" class="carousel slide" data-interval="10000"data-bs-ride="carousel">
-                <div id="js-img-insert" class="carousel-inner">
-                 <!-- .js Instert from Datahub-->
-                 
+  
+          <div class="loading">
+ 
+              <div id="dataslider" class="carousel slide" data-interval="10000"data-bs-ride="carousel">
+                <div id="indicate" class="carousel-indicators">
+                  <!-- .js Instert from Datahub-->
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#dataslider" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#dataslider" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
+                <div id="js-img-insert" class="carousel-inner">
+                <!-- .js Instert from Datahub-->
+                </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#dataslider" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#dataslider" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
               </div>
-
         <hr></hr>
             <div class="card-body p-3">
             <a class="btn btn-primary">search</a>
