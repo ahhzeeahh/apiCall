@@ -2,7 +2,7 @@
 let sel = document.querySelector("#optionSel")
 let url = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
-var indicate = document.querySelector("#js-img-insert");
+//var indicate = document.querySelector("#indicate");
 
 function getApi() {
 fetch(url)
@@ -16,20 +16,23 @@ fetch(url)
 })
 
 .then((data) => {
+  let num = 0
   let d = data.results
   function getSlider() {
     
     slider.innerHTML = "";
-    d.forEach(i =>{
+  /*  d.forEach(i =>{
+      console.log(i.value)
       let btn = document.createElement("button");
-      let num = 0
-      btn.innerHTML = `
+     btn.innerHTML = `
  
     type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"
-   `
-
+  
+   indicate.appendChild(btn);
       num++
-    });
+    }); `
+     
+    indicate.firstElementChild.classList.add('active')*/
 
 
     d.forEach(e => {
@@ -49,7 +52,7 @@ fetch(url)
       });
     
     slider.firstElementChild.classList.add('active')
-    indicate.firstElementChild.classList.add('active')
+
   }
  getSlider();// initial call to api off pg load
 
