@@ -1,13 +1,12 @@
 
+let datahubAtag = document.querySelector("#datahubAtag")
 let sel = document.querySelector("#optionSel")
-let input = "clowns"
-let search = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
-let url = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
+let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 //var indicate = document.querySelector("#indicate");
 
-function getApi() {
-fetch(url)
+function getCarousel() {
+fetch(sliderUrl)
 .then((response) => {
     if(response.ok == true){        
           return response.json()  
@@ -65,11 +64,45 @@ fetch(url)
 })
 }//end of api Call fuction
 
-getApi();// initial call to api off pg load
+getCarousel();// initial call to api off pg load
+
+
 
 sel.addEventListener('change', () => {
-  url = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + sel.value;
-  console.log(url);
-  getApi()
-  })//end of evennt listner
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + sel.value;
+  datahubAtag.setAttribute("href", sliderUrl)
+  getCarousel()
+  })//end of event listner
   
+
+  /*-----------------------------------*/
+    let input = "clowns"
+    let search = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
+    let submit = document.querySelector("#startSearch")
+function getSearch() {
+  fetch(search)
+  .then((response) => {
+      if(response.ok == true){        
+            return response.json()  
+      }else{
+          console.warning(response.status)
+      }
+       
+  })
+  
+  .then((data) => {
+
+
+    
+      datahubAtag.setAttribute("href", sliderUrl)
+
+  
+  
+  })//end of .then
+  
+  .catch(error => {
+    console.log(error)
+  })
+  }//end of api Call fuction
+  
+  submit.addEventListener('submit',  getSearch);
