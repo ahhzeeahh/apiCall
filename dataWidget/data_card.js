@@ -1,5 +1,7 @@
 
 let sel = document.querySelector("#optionSel")
+let input = "clowns"
+let search = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
 let url = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 //var indicate = document.querySelector("#indicate");
