@@ -43,7 +43,7 @@ fetch(sliderUrl)
       dataCol.innerHTML = `
       <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
         <img class="d-block w-100" src="${e.thumbnail_image}">
-        <div class="carousel-caption d-none d-md-block banner-bg">
+        <div class="carousel-caption p-3">
             <h5>${e.name}</h5>
             <p>${e.acquisition_date.slice(0,4)}</p>
           </div>
@@ -76,11 +76,11 @@ sel.addEventListener('change', () => {
   
 
   /*-----------------------------------*/
-    let input = "clowns"
-    let search = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
+    
     let submit = document.querySelector("#startSearch")
-function getSearch() {
-  fetch(search)
+  function getSearch() {
+
+  fetch(searchUrl)
   .then((response) => {
       if(response.ok == true){        
             return response.json()  
@@ -105,4 +105,16 @@ function getSearch() {
   })
   }//end of api Call fuction
   
-  submit.addEventListener('submit',  getSearch);
+  document.querySelector("body > div > div.card-body.p-3 > form > div > i").addEventListener('click',   () => {
+
+    let input = document.querySelector("#startSearch").value
+    let searchUrl = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
+    console.log(searchUrl)
+
+    getSearch()
+    
+    input.value = "";
+
+
+
+  })
