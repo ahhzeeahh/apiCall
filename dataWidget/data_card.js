@@ -1,6 +1,7 @@
 
 let datahubAtag = document.querySelector("#datahubAtag")
-let sel = document.querySelector("#optionSel")
+let submit = document.querySelector("#startSearch")
+let select = document.querySelector("#optionSel")
 let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 //var indicate = document.querySelector("#indicate");
@@ -68,53 +69,30 @@ getCarousel();// initial call to api off pg load
 
 
 
-sel.addEventListener('change', () => {
-  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + sel.value;
+select.addEventListener('change', () => {
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
+  console.log(sliderUrl)
   getCarousel()
   })//end of event listner
   
+submit.addEventListener('click',   (e) => {
 
-  /*-----------------------------------*/
-    
-    let submit = document.querySelector("#startSearch")
-  function getSearch() {
+    e.preventDefault();
 
-  fetch(searchUrl)
-  .then((response) => {
-      if(response.ok == true){        
-            return response.json()  
-      }else{
-          console.warning(response.status)
-      }
-       
-  })
-  
-  .then((data) => {
+    let input = document.querySelector("#searchBox")
+    let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
+    datahubAtag.setAttribute("href", searchUrl)
 
+    sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
+    getCarousel()
 
-    
-      datahubAtag.setAttribute("href", sliderUrl)
-
-  
-  
-  })//end of .then
-  
-  .catch(error => {
-    console.log(error)
-  })
-  }//end of api Call fuction
-  
-  document.querySelector("body > div > div.card-body.p-3 > form > div > i").addEventListener('click',   () => {
-
-    let input = document.querySelector("#startSearch").value
-    let searchUrl = "https://data.geographic.texas.gov/?s=" + input + "&pg=1"
-    console.log(searchUrl)
-
-    getSearch()
-    
+    console.log(sliderUrl)
     input.value = "";
 
 
 
-  })
+  }) // end if search listener
+
+
+
