@@ -10,22 +10,30 @@ function getCarousel() {
 fetch(sliderUrl)
 .then((response) => {
     if(response.ok == true){        
-          return response.json()  
+    
+          return response.json() 
+           
     }else{
-        console.warning(response.status)
+        console.log(response.status)
     }
      
 })
 
 .then((data) => {
+console.log(data.count)
+  
+    
   let num = 0
   document.querySelector("#resultsCount").textContent = data.count + " results"
   let d = data.results
   function getSlider() {
-    
+    if (data.count == 0) {
+    console.log('im in if statement rn')
+    document.querySelector(".loading").style.backgroundImage = "url ('https://cdn.dribbble.com/userupload/2905383/file/original-4ea237e94e803ddd575a66eb32198899.png?resize=400x0')"
+  
+  } else{
     slider.innerHTML = "";
      d.forEach(i =>{
-      console.log(i.value)
       let btn = document.createElement("a");
      btn.innerHTML = `
  
@@ -56,8 +64,12 @@ fetch(sliderUrl)
       });
     
     slider.firstElementChild.classList.add('active')
+  }
 
   }
+
+  
+
  getSlider();// initial call to api off pg load
 
 })//end of .then
@@ -72,7 +84,7 @@ getCarousel();// initial call to api off pg load
 
 
 select.addEventListener('change', () => {
-  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=24&offset=0&ordering=" + select.value;
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
   console.log(sliderUrl)
   getCarousel()
