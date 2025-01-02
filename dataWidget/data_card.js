@@ -33,6 +33,7 @@ fetch(sliderUrl)
   
    indicate.appendChild(btn);
       num++
+      document.querySelector("#resultsStart").textContent = num
     }); 
      
     indicate.firstElementChild.classList.add('active')
