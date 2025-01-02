@@ -4,7 +4,7 @@ let submit = document.querySelector("#startSearch")
 let select = document.querySelector("#optionSel")
 let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
-//var indicate = document.querySelector("#indicate");
+var indicate = document.querySelector("#indicate");
 
 function getCarousel() {
 fetch(sliderUrl)
@@ -19,22 +19,23 @@ fetch(sliderUrl)
 
 .then((data) => {
   let num = 0
+  document.querySelector("#resultsCount").textContent = data.count + " results"
   let d = data.results
   function getSlider() {
     
     slider.innerHTML = "";
-  /*  d.forEach(i =>{
+     d.forEach(i =>{
       console.log(i.value)
-      let btn = document.createElement("button");
+      let btn = document.createElement("a");
      btn.innerHTML = `
  
-    type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"
+    <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"></button>`
   
    indicate.appendChild(btn);
       num++
-    }); `
+    }); 
      
-    indicate.firstElementChild.classList.add('active')*/
+    indicate.firstElementChild.classList.add('active')
 
 
     d.forEach(e => {
@@ -70,7 +71,7 @@ getCarousel();// initial call to api off pg load
 
 
 select.addEventListener('change', () => {
-  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=24&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
   console.log(sliderUrl)
   getCarousel()
@@ -92,7 +93,7 @@ submit.addEventListener('click',   (e) => {
 
 
 
-  }) // end if search listener
+  }) // end of search listener
 
 
 
