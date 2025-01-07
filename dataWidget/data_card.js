@@ -6,6 +6,8 @@ let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
+
+
 function getCarousel() {
 fetch(sliderUrl)
 .then((response) => {
@@ -20,36 +22,21 @@ fetch(sliderUrl)
 })
 
 .then((data) => {
-console.log(data.count)
   
-    
+  let d = data.results  
   let num = 0
   document.querySelector("#resultsCount").textContent = data.count + " results"
-  let d = data.results
+  
   function getSlider() {
-    if (data.count == 0) {
-    console.log('im in if statement rn')
-    document.querySelector(".loading").style.backgroundImage = "url ('https://cdn.dribbble.com/userupload/2905383/file/original-4ea237e94e803ddd575a66eb32198899.png?resize=400x0')"
-  
-  } else{
+    
+    //clears data objects each set
     slider.innerHTML = "";
-     d.forEach(i =>{
-      let btn = document.createElement("a");
-     btn.innerHTML = `
- 
-    <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"></button>`
-  
-   indicate.appendChild(btn);
-      num++
-      document.querySelector("#resultsStart").textContent = num
-    }); 
-     
-    indicate.firstElementChild.classList.add('active')
-
+    indicate.innerHTML = "";
 
     d.forEach(e => {
-      
+       let btn = document.createElement("li");
       let dataCol = document.createElement("div");
+      btn.innerHTML = ` <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"></button>`
       dataCol.className = "carousel-item"
       dataCol.innerHTML = `
       <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
@@ -61,10 +48,12 @@ console.log(data.count)
       </a>
       `;
       slider.appendChild(dataCol);
+      indicate.appendChild(btn);
+      num++
       });
     
     slider.firstElementChild.classList.add('active')
-  }
+    indicate.firstElementChild.classList.add('active')
 
   }
 
@@ -83,12 +72,20 @@ getCarousel();// initial call to api off pg load
 
 
 
+
+
+
+
+
+
 select.addEventListener('change', () => {
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
   console.log(sliderUrl)
   getCarousel()
   })//end of event listner
+
+
   
 submit.addEventListener('click',   (e) => {
 
@@ -108,5 +105,10 @@ submit.addEventListener('click',   (e) => {
 
   }) // end of search listener
 
+slider.addEventListener('afterchange', () => {
+  document.querySelector("#resultsStart").textContent = document.querySelector('li .active').getAttribute("data-bs-slide-to")
+
+  console.log('hi')
 
 
+})//end of event listner
