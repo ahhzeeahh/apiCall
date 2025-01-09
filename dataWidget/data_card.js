@@ -2,34 +2,55 @@
 let datahubAtag = document.querySelector("#datahubAtag")
 let submit = document.querySelector("#startSearch")
 let select = document.querySelector("#optionSel")
+let statusMessage = document.querySelector(".alert-danger");
+let statusImage = document.querySelector("#statusImg")
 let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
+function getError() {
 
 
-function getCarousel() {
+    statusImage.setAttribute("src", "error.jpg")
+    statusMessage.textContent = "Error Fetching Data :("
+  
+  statusImage.style.display = "block"
+  
+ 
+}
+
+function getResponse() {
 fetch(sliderUrl)
 .then((response) => {
     if(response.ok == true){        
-    
+
           return response.json() 
            
     }else{
-        console.log(response.status)
+        getError()
+        console.log(response.status + " -> PART 1---this is fetch status and response = " + response.ok)
     }
      
 })
 
 .then((data) => {
   
+  // Diciphering the data
+  
   let d = data.results  
   let num = 0
   document.querySelector("#resultsCount").textContent = data.count + " results"
-  
+  if (d.length == 0) {
+    console.log("im in fetch but data = 0")
+    statusImage.setAttribute("src", "unavailable.jpg")
+    statusMessage.textContent = "No results Found!!"
+  }
+
   function getSlider() {
     
     //clears data objects each set
+    statusImage.style.display = "none"
+    statusMessage.innerHTML = ""
     slider.innerHTML = "";
     indicate.innerHTML = "";
 
@@ -52,7 +73,7 @@ fetch(sliderUrl)
       num++
       });
     
-    slider.firstElementChild.classList.add('active')
+    slider.firstElementChild.classList.add('active'); 
     indicate.firstElementChild.classList.add('active')
 
   }
@@ -64,11 +85,19 @@ fetch(sliderUrl)
 })//end of .then
 
 .catch(error => {
-  console.log(error)
-})
-}//end of api Call fuction
 
-getCarousel();// initial call to api off pg load
+  getError()
+  console.log(error + " ----------------PART 2 this is bottom of catch errr")
+
+})
+}
+
+
+
+
+
+
+getResponse();// initial call to api off pg load
 
 
 
@@ -82,7 +111,7 @@ select.addEventListener('change', () => {
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
   console.log(sliderUrl)
-  getCarousel()
+  getResponse()
   })//end of event listner
 
 
@@ -90,13 +119,13 @@ select.addEventListener('change', () => {
 submit.addEventListener('click',   (e) => {
 
     e.preventDefault();
-
+   
     let input = document.querySelector("#searchBox")
     let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
     datahubAtag.setAttribute("href", searchUrl)
 
     sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
-    getCarousel()
+    getResponse()
 
     console.log(sliderUrl)
     input.value = "";
@@ -105,10 +134,17 @@ submit.addEventListener('click',   (e) => {
 
   }) // end of search listener
 
-slider.addEventListener('afterchange', () => {
-  document.querySelector("#resultsStart").textContent = document.querySelector('li .active').getAttribute("data-bs-slide-to")
 
-  console.log('hi')
+  
+    //check for slide # its on 
+  setInterval(() => {
+    let stat = document.querySelector('li .active')
+        if (stat != null) {
+          let number = parseFloat(stat.getAttribute("data-bs-slide-to"))
+          document.querySelector("#resultsStart").textContent = number + 1
 
+        } else {
+          document.querySelector("#resultsStart").textContent = "0"
+        }
+     }, 1000);
 
-})//end of event listner
