@@ -6,7 +6,7 @@
       top:0;
     }
   .loading{
-    overflow: hidden;
+    background-repeat: no-repeat;
     object-fit: cover;
     object-position: center;
     background-image: url('loading200px200px.gif');
@@ -16,7 +16,7 @@
     height: 100%;
     width: 100%
   }
-  .loading .carousel-inner > img,
+  .loading .carousel-inner img,
   .loading > img{
     object-fit: contain;
     max-height: 13.2rem;
@@ -81,7 +81,7 @@
           <div class="col-lg-4"> 
               <div class="card">  
                   <h3 class="m-0 pt-3 text-center"> TxGIO Data Collections</h3>
-                    <div class="mx-3">
+                    <div class="select mx-3 ">
                     <select id="optionSel" class="form-select my-3" aria-label="Default select is Newest">
                       <option value="-acquisition_date">Newest</option>
                       <option value="acquisition_date">Oldest</option>
@@ -89,8 +89,9 @@
                       <option value="-name">Z-A</option>
                     </select>
                     </div>
-                    <div class="loading">
-                      <img style="display: none;" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
+                    <div class="stat-wrapper" style="background-color: #000000;">
+                      <div class="img-display">
+                       <img style="display: none;" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
                         <div id="dataslider" class="carousel slide" data-interval="10000" data-bs-ride="carousel">
                             <ul id="indicate" class="carousel-indicators">
                             <!-- .js Instert from Datahub -->
@@ -110,7 +111,7 @@
                                 </button>
                         </div>
                       </div>
-         
+                  </div>
                       <div class="card-body">
                           <p class="alert-danger text-center"></p>
                           <p class="text-center text-secondary"><em>showing <span id="resultsStart">0</span> of...<span id="resultsCount">0</span></em></p>
