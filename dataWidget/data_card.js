@@ -9,24 +9,24 @@ var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
 function getError() {
-
+  //clears data objects each set
+  slider.innerHTML = "";
+  indicate.innerHTML = "";
+  console.log("get error() fyction called from...")
 
     statusImage.setAttribute("src", "error.jpg")
     statusMessage.textContent = "Error Fetching Data :("
-  
-  statusImage.style.display = "block"
-  
- 
 }
 
 function getResponse() {
 fetch(sliderUrl)
 .then((response) => {
     if(response.ok == true){        
-
+          console.log("im working 1")
           return response.json() 
            
     }else{
+      console.log("im not WORKING")
         getError()
         console.log(response.status + " -> PART 1---this is fetch status and response = " + response.ok)
     }
@@ -36,23 +36,18 @@ fetch(sliderUrl)
 .then((data) => {
   
   // Diciphering the data
-  
   let d = data.results  
   let num = 0
   document.querySelector("#resultsCount").textContent = data.count + " results"
-  if (d.length == 0) {
-    console.log("im in fetch but data = 0")
-    statusImage.setAttribute("src", "unavailable.jpg")
-    statusMessage.textContent = "No results Found!!"
-  }
 
-  function getSlider() {
-    
     //clears data objects each set
-    statusImage.style.display = "none"
+    statusImage.setAttribute("src", "loading200px200px.gif")
     statusMessage.innerHTML = ""
     slider.innerHTML = "";
     indicate.innerHTML = "";
+
+  function getSlider() {
+      console.log("INSIDE FUNCTim working 2 passed the if 0 statement")
 
     d.forEach(e => {
        let btn = document.createElement("li");
@@ -78,10 +73,17 @@ fetch(sliderUrl)
 
   }
 
-  
+  if (d.length == 0) {
+    
+    statusImage.setAttribute("src", "unavailable.jpg")
+    statusMessage.textContent = "No results, search again!" 
+    
 
- getSlider();// initial call to api off pg load
-
+    
+  }else{
+    console.log("ESLE/IF Im passed w/ flying colotrs")
+ getSlider();
+  }
 })//end of .then
 
 .catch(error => {
@@ -119,7 +121,7 @@ select.addEventListener('change', () => {
 submit.addEventListener('click',   (e) => {
 
     e.preventDefault();
-   
+    statusImage.setAttribute("src", "loading200px200px.gif")
     let input = document.querySelector("#searchBox")
     let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
     datahubAtag.setAttribute("href", searchUrl)
@@ -127,7 +129,7 @@ submit.addEventListener('click',   (e) => {
     sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
     getResponse()
 
-    console.log(sliderUrl)
+    console.log(input.value)
     input.value = "";
 
 
