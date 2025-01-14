@@ -21,6 +21,18 @@ let stat = document.querySelector('li .active')
   }
 }, 1000);//check for slide # its on 
 
+function getSearch(e) {
+  
+  e.preventDefault();
+  statusImage.setAttribute("src", "loading200px200px.gif")
+  let input = document.querySelector("#searchBox")
+  let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
+  datahubAtag.setAttribute("href", searchUrl)
+
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
+  getResponse()
+  
+}
 
 function getError() {
   //clears data objects each set
@@ -112,7 +124,8 @@ fetch(sliderUrl)
 getResponse();// initial call to api off pg load
 
 
-
+submit.addEventListener('click',  getSearch);
+document.querySelector(".bi-search").addEventListener('click', getSearch);
 select.addEventListener('change', () => {
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
@@ -122,23 +135,6 @@ select.addEventListener('change', () => {
 
 
   
-submit.addEventListener('click',   (e) => {
-
-    e.preventDefault();
-    statusImage.setAttribute("src", "loading200px200px.gif")
-    let input = document.querySelector("#searchBox")
-    let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
-    datahubAtag.setAttribute("href", searchUrl)
-
-    sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
-    getResponse()
-
-    console.log(input.value)
-  
-
-
-
-  }) // end of search listener
 
 
   
