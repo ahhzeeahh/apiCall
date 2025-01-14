@@ -109,17 +109,7 @@ fetch(sliderUrl)
 }
 
 
-
-
-
-
 getResponse();// initial call to api off pg load
-
-
-
-
-
-
 
 
 
@@ -144,7 +134,7 @@ submit.addEventListener('click',   (e) => {
     getResponse()
 
     console.log(input.value)
-    input.value = "";
+  
 
 
 
