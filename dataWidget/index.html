@@ -16,16 +16,9 @@
     height: 100%;
     width: 100%
   }
-  .loading .carousel-inner img,
-  .loading > img{
-    object-fit: contain;
-    max-height: 13.2rem;
-    max-width: 100%; 
-    min-width: 100%;
-    min-height: 100%;
-    vertical-align: middle;
-    border-style: none;
-  }
+  .img-display img{
+    height: 20vh;
+    }
 
   .carousel-caption{
     width: 100%;
@@ -63,6 +56,20 @@
       height: 10px !important;
       
         }
+    .img-display{ 
+      background: #000000;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+    .top-banner{
+      position: relative;
+    }
+    .data-wrapper{
+      position: absolute;
+    top: 0;
+    }
   
 </style>
     
@@ -86,19 +93,19 @@
                       <option value="-acquisition_date">Newest</option>
                       <option value="acquisition_date">Oldest</option>
                       <option value="name">A-Z</option>
-                      <option value="-name">Z-A</option>
+                      <option value="=acquis&^*)__0%$#!~~~~!!@$">Z-A</option>
                     </select>
                     </div>
-                    <div class="stat-wrapper" style="background-color: #000000;">
+                    <div class="top-banner">
                       <div class="img-display">
-                       <img style="display: none;" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
-                        <div id="dataslider" class="carousel slide" data-interval="10000" data-bs-ride="carousel">
+                       <img style="" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
+                      </div>
+                      <div class="data-wrapper">
+                       <div id="dataslider" class="carousel slide" data-interval="10000" data-bs-ride="carousel">
                             <ul id="indicate" class="carousel-indicators">
                             <!-- .js Instert from Datahub -->
                             </ul>
                             <div id="js-img-insert" class="carousel-inner">
-
-                                   <img style="" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
                             <!-- .js Instert from Datahub-->
                             </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#dataslider" data-bs-slide="prev">
@@ -110,7 +117,8 @@
                                   <span class="visually-hidden">Next</span>
                                 </button>
                         </div>
-                      </div>
+                      
+                    </div>
                   </div>
                       <div class="card-body">
                           <p class="alert-danger text-center"></p>
