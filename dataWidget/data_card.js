@@ -70,10 +70,10 @@ fetch(sliderUrl)
       dataCol.className = "carousel-item"
       dataCol.innerHTML = `
       <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
-        <img height="200px" style="overflow: hidden; object: contain;" class="d-block w-100" src="${e.thumbnail_image}">
+        <img class="d-block w-100" src="${e.thumbnail_image}">
         <div class="carousel-caption p-3">
-            <h5>${e.name}</h5>
-            <p>${e.acquisition_date.slice(0,4)}</p>
+            <h5 class="small">${e.name}</h5>
+            <p class="bold">${e.acquisition_date.slice(0,4)}</p>
           </div>
       </a>
       `;
