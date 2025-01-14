@@ -8,6 +8,20 @@ let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
+//---- Main fuctions below---------
+
+setInterval(() => {
+let stat = document.querySelector('li .active')
+  if (stat != null) {
+    let number = parseFloat(stat.getAttribute("data-bs-slide-to"))
+    document.querySelector("#resultsStart").textContent = number + 1
+
+  } else {
+    document.querySelector("#resultsStart").textContent = "0"
+  }
+}, 1000);//check for slide # its on 
+
+
 function getError() {
   //clears data objects each set
   slider.innerHTML = "";
@@ -138,15 +152,5 @@ submit.addEventListener('click',   (e) => {
 
 
   
-    //check for slide # its on 
-  setInterval(() => {
-    let stat = document.querySelector('li .active')
-        if (stat != null) {
-          let number = parseFloat(stat.getAttribute("data-bs-slide-to"))
-          document.querySelector("#resultsStart").textContent = number + 1
-
-        } else {
-          document.querySelector("#resultsStart").textContent = "0"
-        }
-     }, 1000);
+ 
 
