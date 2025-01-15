@@ -2,14 +2,14 @@
 let datahubAtag = document.querySelector("#datahubAtag")
 let submit = document.querySelector("#startSearch")
 let select = document.querySelector("#optionSel")
-let statusMessage = document.querySelector(".alert-danger");
+let statusMessage = document.querySelector("#alert");
 let statusImage = document.querySelector("#statusImg")
 let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
 //---- Main fuctions below---------
-
+/*
 setInterval(() => {
 let stat = document.querySelector('li .active')
   if (stat != null) {
@@ -21,9 +21,12 @@ let stat = document.querySelector('li .active')
   }
 }, 1000);//check for slide # its on 
 
+*/
+
 function getSearch(e) {
   
   e.preventDefault();
+  statusMessage.textContent = "loading, please wait...";
   statusImage.setAttribute("src", "loading200px200px.gif")
   let input = document.querySelector("#searchBox")
   let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
@@ -40,7 +43,7 @@ function getError() {
   indicate.innerHTML = "";
   console.log("get error() fyction called from...")
 
-    statusImage.setAttribute("src", "error.jpg")
+    statusImage.setAttribute("src", "Error_icon.jpg")
     statusMessage.textContent = "Error Fetching Data :("
 }
 
@@ -64,11 +67,11 @@ fetch(sliderUrl)
   // Diciphering the data
   let d = data.results  
   let num = 0
-  document.querySelector("#resultsCount").textContent = data.count + " results"
+
 
     //clears data objects each set
+    statusMessage.textContent = "loading, please wait...";
     statusImage.setAttribute("src", "loading200px200px.gif")
-    statusMessage.innerHTML = ""
     slider.innerHTML = "";
     indicate.innerHTML = "";
 
@@ -81,10 +84,11 @@ fetch(sliderUrl)
       btn.innerHTML = ` <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"></button>`
       dataCol.className = "carousel-item"
       dataCol.innerHTML = `
-      <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
         <img class="d-block w-100" src="${e.thumbnail_image}">
         <div class="carousel-caption p-3">
-            <h5 class="small">${e.name}</h5>
+        <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
+          <h5 class="">${e.name}</h5>
+        </a>
             <p class="bold">${e.acquisition_date.slice(0,4)}</p>
           </div>
       </a>
@@ -96,19 +100,21 @@ fetch(sliderUrl)
     
     slider.firstElementChild.classList.add('active'); 
     indicate.firstElementChild.classList.add('active')
+   
 
   }
 
   if (d.length == 0) {
     
-    statusImage.setAttribute("src", "unavailable.jpg")
+    statusImage.setAttribute("src", "Empty_icon.jpg")
     statusMessage.textContent = "No results, search again!" 
     
 
     
   }else{
+     statusMessage.textContent = "showing 5 of " + data.count + " results";
     console.log("ESLE/IF Im passed w/ flying colotrs")
- getSlider();
+    getSlider();
   }
 })//end of .then
 

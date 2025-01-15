@@ -5,18 +5,18 @@
     #indicate{
       top:0;
     }
-  .loading{
-    background-repeat: no-repeat;
-    object-fit: cover;
-    object-position: center;
-    background-image: url('loading200px200px.gif');
-    background-position: center;
-    margin: auto;
-    overflow: hidden;
-    height: 100%;
-    width: 100%
-  }
- 
+    .carousel-caption a{
+    z-index: 5;
+    color: #fff;
+    text-decoration: none;
+    text-align: left;
+    text-wrap: wrap;
+    }
+    .carousel-caption a:hover{
+      text-decoration: underline;
+      color: #ccc;
+    }
+
   .carousel-caption{
     width: 100%;
     background-image: linear-gradient(180deg, #000000b3, #000000 180%);
@@ -68,12 +68,15 @@
       position: absolute;
     top: 0;
     }
-    .carousel-item {
-    height: 200px;
+    .carousel-item, 
+    .top-banner, 
+    .carousel-item > img {
+    height: 250px;
     }
-    .carousel-item > a > img{
-    
+    .carousel-item > img{
+      object-fit: cover;
     }
+
   
 </style>
     
@@ -91,15 +94,16 @@
           <!--COL 1--> 
           <div class="col-lg-4"> 
               <div class="card">  
-                  <h3 class="m-0 pt-3 text-center"> TxGIO Data Collections</h3>
+                 
                     <div class="select mx-3 ">
                     <select id="optionSel" class="form-select my-3" aria-label="Default select is Newest">
                       <option value="-acquisition_date">Newest</option>
                       <option value="acquisition_date">Oldest</option>
                       <option value="name">A-Z</option>
-                      <option value="=acquis&^*)__0%$#!~~~~!!@$">Z-A</option>
+                      <option value="=acquis&^*)__0%$#!~~~~!!@$">Z-A (test fetch error) </option>
                     </select>
                     </div>
+                     <h4 class="mx-4"> TxGIO Data Collections</h3>
                     <div class="top-banner">
                       <div class="img-display">
                        <img style="" height="200px" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
@@ -125,8 +129,8 @@
                     </div>
                   </div>
                       <div class="card-body">
-                          <p class="alert-danger text-center"></p>
-                          <p class="text-center text-secondary"><em>showing <span id="resultsStart">0</span> of...<span id="resultsCount">0</span></em></p>
+                          <p id="alert" class=" text-secondary font-italic text-center">loading, please wait... <span id="resultsCount"></span></p>
+                          
                           <h6 class="text-center">Search DataHub</h6>
                           <form class="p-2">
                             <label for="searchBox" class="visually-hidden form-label">Search DataHub collections by keyword</label>
