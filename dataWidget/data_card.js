@@ -8,6 +8,32 @@ let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
 
+//---- Main fuctions below---------
+
+setInterval(() => {
+let stat = document.querySelector('li .active')
+  if (stat != null) {
+    let number = parseFloat(stat.getAttribute("data-bs-slide-to"))
+    document.querySelector("#resultsStart").textContent = number + 1
+
+  } else {
+    document.querySelector("#resultsStart").textContent = "0"
+  }
+}, 1000);//check for slide # its on 
+
+function getSearch(e) {
+  
+  e.preventDefault();
+  statusImage.setAttribute("src", "loading200px200px.gif")
+  let input = document.querySelector("#searchBox")
+  let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
+  datahubAtag.setAttribute("href", searchUrl)
+
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
+  getResponse()
+  
+}
+
 function getError() {
   //clears data objects each set
   slider.innerHTML = "";
@@ -56,10 +82,10 @@ fetch(sliderUrl)
       dataCol.className = "carousel-item"
       dataCol.innerHTML = `
       <a  href="https://data.geographic.texas.gov/collection/?c=${e.collection_id}" target= "_blank">
-        <img height="" class="d-block w-100" src="${e.thumbnail_image}">
+        <img class="d-block w-100" src="${e.thumbnail_image}">
         <div class="carousel-caption p-3">
-            <h5>${e.name}</h5>
-            <p>${e.acquisition_date.slice(0,4)}</p>
+            <h5 class="small">${e.name}</h5>
+            <p class="bold">${e.acquisition_date.slice(0,4)}</p>
           </div>
       </a>
       `;
@@ -95,20 +121,11 @@ fetch(sliderUrl)
 }
 
 
-
-
-
-
 getResponse();// initial call to api off pg load
 
 
-
-
-
-
-
-
-
+submit.addEventListener('click',  getSearch);
+document.querySelector(".bi-search").addEventListener('click', getSearch);
 select.addEventListener('change', () => {
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
@@ -118,35 +135,8 @@ select.addEventListener('change', () => {
 
 
   
-submit.addEventListener('click',   (e) => {
-
-    e.preventDefault();
-    statusImage.setAttribute("src", "loading200px200px.gif")
-    let input = document.querySelector("#searchBox")
-    let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
-    datahubAtag.setAttribute("href", searchUrl)
-
-    sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
-    getResponse()
-
-    console.log(input.value)
-    input.value = "";
-
-
-
-  }) // end of search listener
 
 
   
-    //check for slide # its on 
-  setInterval(() => {
-    let stat = document.querySelector('li .active')
-        if (stat != null) {
-          let number = parseFloat(stat.getAttribute("data-bs-slide-to"))
-          document.querySelector("#resultsStart").textContent = number + 1
-
-        } else {
-          document.querySelector("#resultsStart").textContent = "0"
-        }
-     }, 1000);
+ 
 
