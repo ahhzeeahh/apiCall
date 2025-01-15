@@ -43,7 +43,7 @@ function getError() {
   indicate.innerHTML = "";
   console.log("get error() fyction called from...")
 
-    statusImage.setAttribute("src", "Error_icon.jpg")
+    statusImage.setAttribute("src", "Error_icon.png")
     statusMessage.textContent = "Error Fetching Data :("
 }
 
@@ -106,7 +106,7 @@ fetch(sliderUrl)
 
   if (d.length == 0) {
     
-    statusImage.setAttribute("src", "Empty_icon.jpg")
+    statusImage.setAttribute("src", "Empty_icon.png")
     statusMessage.textContent = "No results, search again!" 
     
 
