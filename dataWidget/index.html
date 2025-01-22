@@ -2,8 +2,35 @@
 <html lang="en">
 <head>
   <style>
+    .carousel-control-next-icon, .carousel-control-prev-icon {
+      background-image: none !important;
+      border-top: 10px solid #fff;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      width: unset !important;;
+      height: unset !important;;
+      background-repeat: none !important;;
+      background-position:none !important;;
+      background-size: none !important;;
+
+    }
+    .carousel-control-prev-icon{
+      transform: rotate(90deg);
+    }
+    .carousel-control-next-icon{
+      transform: rotate(270deg);
+    }
     #indicate{
       top:0;
+    }
+    .carousel-caption h5 {
+      width: 200px;
+      text-wrap: wrap;
+    }
+      
+    .carousel-caption {
+      display: flex;
+      align-items: center;
     }
     .carousel-caption a{
     z-index: 5;
@@ -51,6 +78,8 @@
     .carousel-indicators button{
       width: 10px !important;
       height: 10px !important;
+      border-radius: 50%;
+
       
         }
     .img-display, .top-banner{ 
@@ -97,7 +126,7 @@
               <div class="card">  
                  
                     <div class="select mx-3 ">
-                    <select id="optionSel" class="form-select my-3" aria-label="Default select is Newest">
+                    <select  enabled id="optionSel" class="form-select my-3" aria-label="Default select is Newest">
                       <option value="-acquisition_date">Newest</option>
                       <option value="acquisition_date">Oldest</option>
                       <option value="name">A-Z</option>
@@ -107,7 +136,8 @@
                      <h4 class="mx-4"> TxGIO Data Collections</h3>
                     <div class="top-banner">
                       <div class="img-display">
-                       <img style="" id="statusImg" alt="Status of data grab image" src="loading200px200px.gif">
+                       <img style="" height="132px" id="statusImg" alt="Status of data grab image" src="loading.gif">
+                       <p id="statusTxt" class="text-white text-center">loading, please wait...</p>
                       </div>
                       <div class="data-wrapper">
                        <div id="dataslider" class="carousel slide" data-interval="10000" data-bs-ride="carousel">
@@ -117,6 +147,8 @@
                             <div id="js-img-insert" class="carousel-inner">
                             <!-- .js Instert from Datahub-->
                             </div>
+                            <div id="buttons">
+                              <!-- view toggled on/off-->
                                 <button class="carousel-control-prev" type="button" data-bs-target="#dataslider" data-bs-slide="prev">
                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                   <span class="visually-hidden">Previous</span>
@@ -125,18 +157,19 @@
                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                   <span class="visually-hidden">Next</span>
                                 </button>
-                        </div>
+                            </div>
+                      </div>
                       
                     </div>
                   </div>
                       <div class="card-body">
-                          <p id="alert" class=" text-secondary font-italic text-center">loading, please wait... <span id="resultsCount"></span></p>
+                          <p id="alert" class=" text-secondary fst-italic text-center"><em>loading, please wait... </em><span id="resultsCount"></span></p>
                           
                           <h6 class="text-center">Search DataHub</h6>
                           <form class="p-2">
                             <label for="searchBox" class="visually-hidden form-label">Search DataHub collections by keyword</label>
                             <div class="search-input">
-                            <input placeholder="Search collections by keyword" type="search" class="widget-search" id="searchBox" aria-describedby="search">
+                            <input placeholder="EX: Lake Austin" disabled="false" type="search" class="widget-search" id="searchBox" aria-describedby="search">
                               <i class="bi px-2 bi-search"></i>
                           </div>
                             <button id="startSearch" type="submit" class=" mt-3 w-100 btn btn-dark shadow">Search</button>

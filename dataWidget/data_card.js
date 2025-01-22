@@ -4,6 +4,7 @@ let submit = document.querySelector("#startSearch")
 let select = document.querySelector("#optionSel")
 let statusMessage = document.querySelector("#alert");
 let statusImage = document.querySelector("#statusImg")
+let statusTxt = document.querySelector("#statusTxt")
 let sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date";
 var slider = document.querySelector("#js-img-insert");
 var indicate = document.querySelector("#indicate");
@@ -23,11 +24,30 @@ let stat = document.querySelector('li .active')
 
 */
 
+function load() {
+  //clears data objects each set
+    
+    statusMessage.textContent = "loading, please wait...";
+    statusImage.setAttribute("src", "loading.gif")
+    slider.innerHTML = "";
+    indicate.innerHTML = "";
+
+  submit.disabled = true
+  select.disabled = true
+    setInterval(() => {
+    submit.disabled = false
+    select.disabled = false
+    }, 1000);
+    
+
+}
+
 function getSearch(e) {
-  
+
   e.preventDefault();
   statusMessage.textContent = "loading, please wait...";
-  statusImage.setAttribute("src", "loading200px200px.gif")
+  statusTxt.textContent = "Loading...";
+  statusImage.setAttribute("src", "loading.gif")
   let input = document.querySelector("#searchBox")
   let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
   datahubAtag.setAttribute("href", searchUrl)
@@ -38,13 +58,13 @@ function getSearch(e) {
 }
 
 function getError() {
-  //clears data objects each set
-  slider.innerHTML = "";
-  indicate.innerHTML = "";
+  
   console.log("get error() fyction called from...")
 
     statusImage.setAttribute("src", "Error_icon.png")
-    statusMessage.textContent = "Error Fetching Data :("
+    statusTxt.textContent = "Error: Please Try Another Query";
+    statusMessage.textContent = "Error";
+
 }
 
 function getResponse() {
@@ -56,6 +76,7 @@ fetch(sliderUrl)
            
     }else{
       console.log("im not WORKING")
+        load()
         getError()
         console.log(response.status + " -> PART 1---this is fetch status and response = " + response.ok)
     }
@@ -68,12 +89,7 @@ fetch(sliderUrl)
   let d = data.results  
   let num = 0
 
-
-    //clears data objects each set
-    statusMessage.textContent = "loading, please wait...";
-    statusImage.setAttribute("src", "loading200px200px.gif")
-    slider.innerHTML = "";
-    indicate.innerHTML = "";
+  load()
 
   function getSlider() {
       console.log("INSIDE FUNCTim working 2 passed the if 0 statement")
@@ -105,15 +121,17 @@ fetch(sliderUrl)
   }
 
   if (d.length == 0) {
-    
+ //---Search came back with nothing from API ...ex "clowns"-------   
+
     statusImage.setAttribute("src", "Empty_icon.png")
-    statusMessage.textContent = "No results, search again!" 
+    statusMessage.textContent = "No results";
+    statusTxt.textContent = "No data found";
     
 
     
   }else{
      statusMessage.textContent = "showing 5 of " + data.count + " results";
-    console.log("ESLE/IF Im passed w/ flying colotrs")
+     console.log("ESLE/IF Im passed w/ flying colotrs")
     getSlider();
   }
 })//end of .then
@@ -131,7 +149,7 @@ getResponse();// initial call to api off pg load
 
 
 submit.addEventListener('click',  getSearch);
-document.querySelector(".bi-search").addEventListener('click', getSearch);
+document.querySelector(".bi-search").addEventListener('click', load);
 select.addEventListener('change', () => {
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
   datahubAtag.setAttribute("href", sliderUrl)
