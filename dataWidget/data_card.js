@@ -24,16 +24,22 @@ let stat = document.querySelector('li .active')
 
 */
 
-function load() {
-  //clears data objects each set
-    
-    statusMessage.textContent = "loading, please wait...";
-    statusImage.setAttribute("src", "loading.gif")
-    slider.innerHTML = "";
-    indicate.innerHTML = "";
-
+function load() {  
+  
   submit.disabled = true
   select.disabled = true
+  
+  //clears data objects each set
+   slider.innerHTML = "";
+    indicate.innerHTML = "";
+
+  //shows that its thinking
+  statusMessage.textContent = "loading, please wait...";
+  statusTxt.textContent = "Loading...";
+  statusImage.setAttribute("src", "loading.gif")
+
+   
+
     setInterval(() => {
     submit.disabled = false
     select.disabled = false
@@ -45,9 +51,6 @@ function load() {
 function getSearch(e) {
 
   e.preventDefault();
-  statusMessage.textContent = "loading, please wait...";
-  statusTxt.textContent = "Loading...";
-  statusImage.setAttribute("src", "loading.gif")
   let input = document.querySelector("#searchBox")
   let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
   datahubAtag.setAttribute("href", searchUrl)
