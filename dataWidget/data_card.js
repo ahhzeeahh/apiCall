@@ -28,10 +28,10 @@ function load() {
   
   submit.disabled = true
   select.disabled = true
-  
+  document.querySelector("#dataslider").style.display = "none"
+
   //clears data objects each set
-   slider.innerHTML = "";
-    indicate.innerHTML = "";
+  
 
   //shows that its thinking
   statusMessage.textContent = "loading, please wait...";
@@ -43,6 +43,7 @@ function load() {
     setInterval(() => {
     submit.disabled = false
     select.disabled = false
+  
     }, 1000);
     
 
@@ -60,17 +61,41 @@ function getSearch(e) {
   
 }
 
-function getError() {
+function getError(length) {
   
-  console.log("get error() fyction called from...")
+  if (length === 0) {
+    console.log("INSIDE getError()... fuction called from api has 0 querries")
 
+    statusImage.setAttribute("src", "Empty_icon.png")
+    statusMessage.textContent = "No results";
+    statusTxt.textContent = "No data found";
+    
+  } else {
+    console.log("INSIDE getError()...")
     statusImage.setAttribute("src", "Error_icon.png")
     statusTxt.textContent = "Error: Please Try Another Query";
     statusMessage.textContent = "Error";
+  }
 
 }
 
+submit.addEventListener('click',  getSearch);
+
+document.querySelector(".bi-search").addEventListener('click', load);
+
+select.addEventListener('change', () => {
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
+  datahubAtag.setAttribute("href", sliderUrl)
+  console.log(sliderUrl)
+  getResponse()
+  })//end of event listner
+
+
+
 function getResponse() {
+
+  load();
+
 fetch(sliderUrl)
 .then((response) => {
     if(response.ok == true){        
@@ -78,8 +103,8 @@ fetch(sliderUrl)
           return response.json() 
            
     }else{
-      console.log("im not WORKING")
-        load()
+      console.log("im not WORKING 1")
+        
         getError()
         console.log(response.status + " -> PART 1---this is fetch status and response = " + response.ok)
     }
@@ -88,15 +113,15 @@ fetch(sliderUrl)
 
 .then((data) => {
   
-  // Diciphering the data
-  let d = data.results  
-  let num = 0
+  slider.innerHTML = "";
+  indicate.innerHTML = "";
 
-  load()
+  let d = data.results  
+  let num = 0;
 
   function getSlider() {
-      console.log("INSIDE FUNCTim working 2 passed the if 0 statement")
-
+      console.log("2 INSIDE FUNCTim working 2 passed the if 0 statement")
+      
     d.forEach(e => {
        let btn = document.createElement("li");
       let dataCol = document.createElement("div");
@@ -120,23 +145,26 @@ fetch(sliderUrl)
     slider.firstElementChild.classList.add('active'); 
     indicate.firstElementChild.classList.add('active')
    
+   
 
   }
 
   if (d.length == 0) {
  //---Search came back with nothing from API ...ex "clowns"-------   
-
-    statusImage.setAttribute("src", "Empty_icon.png")
-    statusMessage.textContent = "No results";
-    statusTxt.textContent = "No data found";
+    d.length = length
+    getError(length)
     
 
     
   }else{
      statusMessage.textContent = "showing 5 of " + data.count + " results";
-     console.log("ESLE/IF Im passed w/ flying colotrs")
-    getSlider();
+     console.log("3 ESLE/IF Im passed w/ flying colotrs")
+     getSlider();
+     document.querySelector("#dataslider").style.display = "block";
+
   }
+
+  
 })//end of .then
 
 .catch(error => {
@@ -149,19 +177,6 @@ fetch(sliderUrl)
 
 
 getResponse();// initial call to api off pg load
-
-
-submit.addEventListener('click',  getSearch);
-document.querySelector(".bi-search").addEventListener('click', load);
-select.addEventListener('change', () => {
-  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
-  datahubAtag.setAttribute("href", sliderUrl)
-  console.log(sliderUrl)
-  getResponse()
-  })//end of event listner
-
-
-  
 
 
   
