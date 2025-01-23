@@ -30,22 +30,11 @@ function load() {
   select.disabled = true
   document.querySelector("#dataslider").style.display = "none"
 
-  //clears data objects each set
-  
-
   //shows that its thinking
   statusMessage.textContent = "loading, please wait...";
   statusTxt.textContent = "Loading...";
   statusImage.setAttribute("src", "loading.gif")
 
-   
-
-    setInterval(() => {
-    submit.disabled = false
-    select.disabled = false
-  
-    }, 1000);
-    
 
 }
 
@@ -76,6 +65,8 @@ function getError(length) {
     statusTxt.textContent = "Error: Please Try Another Query";
     statusMessage.textContent = "Error";
   }
+  submit.disabled = false
+  select.disabled = false
 
 }
 
@@ -158,19 +149,18 @@ fetch(sliderUrl)
     
   }else{
      statusMessage.textContent = "showing 5 of " + data.count + " results";
-     console.log("3 ESLE/IF Im passed w/ flying colotrs")
      getSlider();
-     document.querySelector("#dataslider").style.display = "block";
+
 
   }
-
-  
+  document.querySelector("#dataslider").style.display = "block";
+  submit.disabled = false
+  select.disabled = false
 })//end of .then
 
 .catch(error => {
 
   getError()
-  console.log(error + " ----------------PART 2 this is bottom of catch errr")
 
 })
 }
