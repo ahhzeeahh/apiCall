@@ -85,6 +85,7 @@ function getAPIResponse() {
 
     .then((data) => {
       let d = data.results // TODO: consider renaming to "collections"
+      console.log(d)
       if (d.length == 0) {
               //---Search came back with nothing from API ...ex "clowns"-------   
               d.length = i
@@ -126,6 +127,7 @@ function getAPIResponse() {
 
         slider.firstElementChild.classList.add('active');
         indicate.firstElementChild.classList.add('active')
+        statusMessage.textContent = "showing " + d.length + "of " + d.count
       }
 
      
