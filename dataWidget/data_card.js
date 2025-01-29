@@ -35,7 +35,6 @@ function setDisplayLoading() {
   setTimeout(() =>{
     submit.disabled = false
     select.disabled = false
-    console.log("hi")
   }, 2000);
 }
 function setDataHubLink(e) { 
@@ -82,13 +81,10 @@ function getAPIResponse() {
       } else {
         setDisplayError(i)
          }
-
     })
 
     .then((data) => {
       let d = data.results // TODO: consider renaming to "collections"
-      let num = 0;
-      console.log(d.length)
       if (d.length == 0) {
               //---Search came back with nothing from API ...ex "clowns"-------   
               d.length = i
@@ -100,18 +96,18 @@ function getAPIResponse() {
 
       // TODO: refactor getSlider function to exist outside of the scope of getResponse and take an argument 
       // TODO: rename getSlider to something more accurate and specific. Ex: "setCarouselSlides" or similar.
-      // TODO: refactor so that setting slider innerHTML and indicator innerHTML occurs inside of getSlider
+
 
       function getSlider() {
-        console.log("2 INSIDE FUNCTim working 2 passed the if 0 statement") // TODO: remove console.log
-
+  
         // TODO: consider creating a named function like "generateSlideHTML" in place of the anonymous function below, which takes args "collection" and "index"
         // TODO: consider using the second argument of the callback function for "forEach", which gives access to the index
         // of the current element in the array. This will allow you to get rid of the "num" variable above
         d.forEach(e => {
+          //find current slide num aka num in array it is on console.log(d.indexOf(e) + 1)
           let btn = document.createElement("li");
           let dataCol = document.createElement("div");
-          btn.innerHTML = ` <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${num}" class="" aria-current="true" aria-label="Slide ${num}"></button>`
+          btn.innerHTML = ` <button type="button" data-bs-target="#dataslider" data-bs-slide-to="${d.indexOf(e) + 1}" class="" aria-current="true" aria-label="Slide ${d.indexOf(e) + 1}"></button>`
           dataCol.className = "carousel-item"
           dataCol.innerHTML = `
         <img class="d-block w-100" src="${e.thumbnail_image}">
@@ -125,7 +121,7 @@ function getAPIResponse() {
       `;
           slider.appendChild(dataCol);
           indicate.appendChild(btn);
-          num++
+        
         });
 
         slider.firstElementChild.classList.add('active');
