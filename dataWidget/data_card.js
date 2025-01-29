@@ -1,17 +1,4 @@
-function getFoo() {
-  let word = "foo"
-  return word
-}
-
-function printFooBar() {
-  let word = getFoo() + "bar"
-  console.log(word)
-}
-
-
-
-
-
+let i = "index";
 let datahubAtag = document.querySelector("#datahubAtag")
 let submit = document.querySelector("#startSearch")
 let select = document.querySelector("#optionSel")
@@ -36,100 +23,85 @@ let stat = document.querySelector('li .active')
 }, 1000);//check for slide # its on 
 
 */
-
-// GENERAL TODO:
-// TODO: remove console.log statements, or comment them out
-// TODO: install the Prettier plugin for vscode, as well as eslint to get autoformatting in your editor
-//
-
-function setDisplayLoading() { //TODO: consider renaming to something more specific to display. ex: 'setDisplayLoading'
-
+function setDisplayLoading() {
   submit.disabled = true
   select.disabled = true
-  document.querySelector("#dataslider").style.display = "none";
 
   //shows that its thinking
   statusMessage.textContent = "loading, please wait...";
   statusTxt.textContent = "Loading...";
   statusImage.setAttribute("src", "loading.gif")
+
+  setTimeout(() =>{
+    submit.disabled = false
+    select.disabled = false
+    console.log("hi")
+  }, 2000);
 }
-
-function getSearch(e) { // TODO: consider refactoring so that display changes and search functionality are separate.
-
+function setDataHubLink(e) { 
   e.preventDefault();
-
-  // TODO: move to separate function, example, function setDataHubLink() {...}
   let input = document.querySelector("#searchBox")
+if (input === "") {
   let searchUrl = "https://data.geographic.texas.gov/?s=" + input.value + "&pg=1"
   datahubAtag.setAttribute("href", searchUrl)
-
   sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=-acquisition_date&search=" + input.value
-  getResponse()
+} else {
+  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
+    let searchUrl = "https://data.geographic.texas.gov/?s=" + select.value + "&pg=1"
+  datahubAtag.setAttribute("href", searchUrl) 
+}
+getAPIResponse()
 
 }
 
-function getError(length) { // TODO: consider renaming to be more accurate and specific. Example "setDisplayError"
+function setDisplayError(i) { 
 
   if (length === 0) {
-    console.log("INSIDE getError()... fuction called from api has 0 querries")
-
-    statusImage.setAttribute("src", "Empty_icon.png")
+ statusImage.setAttribute("src", "Empty_icon.png")
     statusMessage.textContent = "No results";
     statusTxt.textContent = "No data found";
 
   } else {
-    console.log("INSIDE getError()...")
     statusImage.setAttribute("src", "Error_icon.png")
     statusTxt.textContent = "Error: Please Try Another Query";
     statusMessage.textContent = "Error";
   }
-
-  submit.disabled = false
-    select.disabled = false
 }
 
-submit.addEventListener('click', getSearch);
 
-document.querySelector(".bi-search").addEventListener('click', setDisplayLoading);
-
-select.addEventListener('change', () => { // TODO: refactor this anonymous function to a named function
-  sliderUrl = "https://api.tnris.org/api/v1/collections_catalog?limit=5&offset=0&ordering=" + select.value;
-  datahubAtag.setAttribute("href", sliderUrl) // TODO: this likely causes a bug / is unintentional. you are setting the datahub link to the api url here
-  getResponse()
-})//end of event listner // TODO: remove preceding comment and all comments which do not provide documentary value (comments should explain things that are not obvious or require explanation)
-
-
-
-function getResponse() { // TODO: consider renaming function. "getSearch" may make more sense here, once refactored.
-
+function getAPIResponse() { 
+  slider.innerHTML = "";
+  indicate.innerHTML = "";
   setDisplayLoading();
 
   fetch(sliderUrl)
     .then((response) => {
       if (response.ok == true) {
-        console.log("im working 1")
         return response.json()
 
       } else {
-        console.log("im not WORKING 1") // TODO: remove console.log
-
-        getError()
-        console.log(response.status + " -> PART 1---this is fetch status and response = " + response.ok) // TODO: remove console.log
-      }
+        setDisplayError(i)
+         }
 
     })
 
     .then((data) => {
-
-      slider.innerHTML = "";
-      indicate.innerHTML = "";
-
       let d = data.results // TODO: consider renaming to "collections"
-      let num = 0; // TODO: not necessary. simple
+      let num = 0;
+      console.log(d.length)
+      if (d.length == 0) {
+              //---Search came back with nothing from API ...ex "clowns"-------   
+              d.length = i
+              getError(i)
+
+            } else {
+              getSlider();
+      }
 
       // TODO: refactor getSlider function to exist outside of the scope of getResponse and take an argument 
       // TODO: rename getSlider to something more accurate and specific. Ex: "setCarouselSlides" or similar.
       // TODO: refactor so that setting slider innerHTML and indicator innerHTML occurs inside of getSlider
+
       function getSlider() {
         console.log("2 INSIDE FUNCTim working 2 passed the if 0 statement") // TODO: remove console.log
 
@@ -158,41 +130,21 @@ function getResponse() { // TODO: consider renaming function. "getSearch" may ma
 
         slider.firstElementChild.classList.add('active');
         indicate.firstElementChild.classList.add('active')
-
-
-
       }
 
-      if (d.length == 0) {
-        //---Search came back with nothing from API ...ex "clowns"-------   
-        d.length = length
-        getError(length)
-
-
-
-      } else {
-        statusMessage.textContent = "showing 5 of " + data.count + " results";
-        console.log("3 ESLE/IF Im passed w/ flying colotrs")
-        getSlider();
-        
-
-      }
-
-
-      submit.disabled = false
-    select.disabled = false
-    document.querySelector("#dataslider").style.display = "block";
-
+     
     })//end of .then
 
     .catch(error => {
-
-      getError()
-      console.log(error + " ----------------PART 2 this is bottom of catch errr")
-
+      setDisplayError(i)
     })
 }
 
 // TODO: consider creating an "init" function where all necessary initialization functions are called. In this case, just "getResponse" would be called
 // but if, in the future, you needed to extend initialization functionality, you could simply create a new function and call it in "init"
-getResponse();// initial call to api off pg load
+getAPIResponse()// initial call to api off pg load
+
+submit.addEventListener('click', setDataHubLink);
+document.querySelector(".bi-search").addEventListener('click', setDataHubLink);
+select.addEventListener('change', setDataHubLink)
+
