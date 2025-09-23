@@ -10,6 +10,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Txgio NEW Figma Widgets</title>
     <style>
+        .contract-box{
+            background: #f2f2f3;
+            border-radius: 1rem;
+            padding: 20px;
+            text-align: center;
+            color: var(--blue)
+      
+        }
+        .contract-box:hover{
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            transform: scale(1.02);
+            
+        }
+        .contracts-grid .grid{
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+        }
+        .contract-box img{
+            width: 100%;
+            object-fit: contain;
+            background-size: contain;
+            background-position: center;
+ }
+
+        button.character-element,
+        .contract-box a {
+            background-color: transparent;
+            color: #007DB8;
+            text-decoration: underline; 
+            border: none
+        }
+        button.character-element.active{
+            color: #ccc;
+        }
 
     </style>
 </head>
@@ -24,7 +60,7 @@
             </div>
             <div class="col-lg-8">
                 <div id="alpha-nav" class="character-container pt-3 d-flex">
-                    <button class="character-element" data-filter="All">All</button><button class="character-element active" data-filter="A">A</button><button class="character-element" data-filter="B">B</button><button class="character-element" data-filter="C">C</button><button class="character-element" data-filter="D">D</button><button class="character-element" data-filter="E">E</button><button class="character-element" data-filter="F">F</button><button class="character-element" data-filter="G">G</button><button class="character-element" data-filter="H">H</button><button class="character-element" data-filter="I">I</button><button class="character-element" data-filter="J">J</button><button class="character-element" data-filter="K">K</button><button class="character-element" data-filter="L">L</button><button class="character-element" data-filter="M">M</button><button class="character-element" data-filter="N">N</button><button class="character-element" data-filter="O">O</button><button class="character-element" data-filter="P">P</button><button class="character-element" data-filter="Q"  >Q</button><button class="character-element" data-filter="R">R</button><button class="character-element" data-filter="S">S</button><button class="character-element" data-filter="T">T</button><button class="character-element" data-filter="U">U</button><button class="character-element" data-filter="V">V</button><button class="character-element" data-filter="W">W</button><button class="character-element" data-filter="X"  >X</button><button class="character-element" data-filter="Y"  >Y</button><button class="character-element" data-filter="Z"  >Z</button>
+                    <button class="character-element active" data-filter="All">All</button><button class="character-element" data-filter="A">A</button><button class="character-element" data-filter="B">B</button><button class="character-element" data-filter="C">C</button><button class="character-element" data-filter="D">D</button><button class="character-element" data-filter="E">E</button><button class="character-element" data-filter="F">F</button><button class="character-element" data-filter="G">G</button><button class="character-element" data-filter="H">H</button><button class="character-element" data-filter="I">I</button><button class="character-element" data-filter="J">J</button><button class="character-element" data-filter="K">K</button><button class="character-element" data-filter="L">L</button><button class="character-element" data-filter="M">M</button><button class="character-element" data-filter="N">N</button><button class="character-element" data-filter="O">O</button><button class="character-element" data-filter="P">P</button><button class="character-element" data-filter="Q"  >Q</button><button class="character-element" data-filter="R">R</button><button class="character-element" data-filter="S">S</button><button class="character-element" data-filter="T">T</button><button class="character-element" data-filter="U">U</button><button class="character-element" data-filter="V">V</button><button class="character-element" data-filter="W">W</button><button class="character-element" data-filter="X"  >X</button><button class="character-element" data-filter="Y"  >Y</button><button class="character-element" data-filter="Z"  >Z</button>
                 </div>
             </div>
 
@@ -32,7 +68,7 @@
 
         
             <p class="text-center itallic mt-5 display-5" id="status-message">
-                <img alt="Loadinf results" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">
+                <img alt="loading image" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">
             </p>
             <div class="contracts-grid">
                 <div class="grid" id="insertContracts">

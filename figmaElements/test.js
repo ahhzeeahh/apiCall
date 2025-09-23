@@ -36,8 +36,9 @@ fetch("https://test.txgio.org/contracts/index.json")
                         divHolder.className = "contract-box"
 
                         divHolder.innerHTML = `
-                                <img alt="${e.Title} logo and web links" class="d-block w-100" src="${e.Logo}"
-                                <a  href="${e.website}" target= "_blank">Contact Page</a>
+                                <img height="60px" alt="${e.Title} logo and web links" class="d-block w-100" src="${e.Logo}">
+                                <h5 class="mt-3 text-dark fw-bold">${e.Title}</h5>
+                               <a  href="${e.website}" target= "_blank">Contact Page</a><br>
                                 <a  href="${e.DIRlink}" target= "_blank">DIR Contact Page</a>
                     
                         `;   
