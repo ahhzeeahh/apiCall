@@ -2,13 +2,11 @@
 let sectionInsert = document.getElementById("insertContracts")
 let p = document.getElementById("status-message")
 let abcNav = document.getElementById("alpha-nav")
-
+let currArr = ""
 
 function setDisplayNone() {
     p.innerHTML = "No contracts available at the moment..."
 }
-
-
 
 fetch("https://test.txgio.org/contracts/index.json")
 
@@ -23,15 +21,30 @@ fetch("https://test.txgio.org/contracts/index.json")
 })
     .then(data => {
        
-       let all = data.providers //change this to .all later!!!!!!!!!!!!!!!
+       let allContracts = data.providers 
+       console.log(allContracts)
 
-       console.log(all);
+        function getArrayFiltered(e) {
+
+            let afterArr = allContracts.filter(beforeArr => e.target.innerText == beforeArr.Tab);
+            console.log(afterArr)
+            if (afterArr.length = 0) {
+                setDisplayNone()    
+            }else{
+            afterArr = currArr;
+            console.log(currArr)
+            makeBlocks(currArr)
+            }
+        }
+            
+
+
 
        function makeBlocks(currArr) {
                 sectionInsert.innerHTML = "" // clear before each round
                 p.innerHTML = "";
                     currArr.forEach(e => {
-
+                        console.log(e.Tab == "A")
                         let divHolder = document.createElement("div");
                         divHolder.className = "contract-box"
 
@@ -46,7 +59,8 @@ fetch("https://test.txgio.org/contracts/index.json")
                     });   
         }
 
-         makeBlocks(all)
+         makeBlocks(allContracts)
+         abcNav.addEventListener('click', getArrayFiltered);
          
 }
 )
@@ -55,3 +69,4 @@ fetch("https://test.txgio.org/contracts/index.json")
         setDisplayNone();
         console.log("rip...ERROR =" + error)
 });
+
