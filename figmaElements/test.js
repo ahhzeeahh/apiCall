@@ -3,6 +3,8 @@ let contractsContainer = document.getElementById("insertContracts")
 let statusContainer = document.getElementById("status-message")
 let abcNav = document.getElementById("alpha-nav")
 let searchBox = document.getElementById("searchBox")
+var contracts = []
+var filteredContracts = [];
 
 function setDisplayNone() {
     setTimeout(() => {
@@ -11,8 +13,7 @@ function setDisplayNone() {
     p.innerHTML = `<img alt="loading image" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">`;
 
 }
-var contracts = []
-var filteredContracts = [];
+
 // Title String 1: Aecom -> AECOM
 // Title String 2: ESRI -> ESRI
 // Search Value: Eco -> ECO
@@ -84,6 +85,7 @@ async function fetchContracts() {
     statusContainer.innerHTML = `<img alt="loading image" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">`;
 
     if (!contractsRes.ok) {
+          statusContainer.innerHTML = `No Contracts at the moment.`
         console.error("Failed to fetch contracts. Please try reloading the page.");
         return
     }
@@ -91,21 +93,31 @@ async function fetchContracts() {
     const contractsJson = await contractsRes.json();
 
     statusContainer.innerHTML = "";
+      console.log(contractsJson.providers)
     return contractsJson.providers;
+  
 }
 
+//------------THIS IS THE MAIN FUCTION HERE-----------------------------
 async function init() {
     searchBox.disabled = true;
+    //show all gathers json items
     contracts = await fetchContracts();
     console.log(contracts)
     searchBox.disabled = false;
+    //listen for types search
     searchBox.addEventListener("input", searchContracts);
+    // listen for click filter
+    
+    //update all contracts
     setContractsContent(contracts);
 }
+//------------THIS IS THE MAIN FUCTION HERE-----------------------------
 
 async function searchContracts(event) {
-    //console.log("search triggered");
+ 
     const searchText = event.target.value;
+       console.log("search triggered = " + searchText);
     if (!searchText || searchText.length == 0) {
         setContractsContent(contracts);
         return;
