@@ -7,53 +7,14 @@ var contracts = []
 var filteredContracts = [];
 
 function setDisplayNone() {
+  
     setTimeout(() => {
-        p.textContent = "No contracts available at the moment..."
+        statusContainer.textContent = "No contracts available"
     }, 500);
-    p.innerHTML = `<img alt="loading image" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">`;
+    statusContainer.innerHTML = `<img alt="loading image" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">`;
 
 }
 
-// Title String 1: Aecom -> AECOM
-// Title String 2: ESRI -> ESRI
-// Search Value: Eco -> ECO
-// distance ECO -> ESRI ..... E 1) S 2) R 3) Levenshtein distance = 3
-// ECO -> AECOM ..... Add A -> AECO, Add M -> AECOM distance 2
-/* function levenshteinDistance(str1, str2) {
-    const len1 = str1.length;
-    const len2 = str2.length;
-
-    // Create a 2D array (matrix) to store distances
-    const dp = Array(len1 + 1).fill(null).map(() => Array(len2 + 1).fill(null));
-
-    // Initialize the first row and column
-    for (let i = 0; i <= len1; i++) {
-        dp[i][0] = i; // Distance from empty string to str1[0...i-1] is i deletions
-    }
-    for (let j = 0; j <= len2; j++) {
-        dp[0][j] = j; // Distance from empty string to str2[0...j-1] is j insertions
-    }
-
-    // Fill the rest of the matrix
-    for (let i = 1; i <= len1; i++) {
-        for (let j = 1; j <= len2; j++) {
-            const cost = (str1[i - 1] === str2[j - 1]) ? 0 : 1;
-
-            dp[i][j] = Math.min(
-                dp[i - 1][j] + 1,      // Deletion
-                dp[i][j - 1] + 1,      // Insertion
-                dp[i - 1][j - 1] + cost // Substitution or Match
-            );
-        }
-    }
-
-    // The bottom-right cell contains the Levenshtein distance
-    return dp[len1][len2];
-}
-
-function normalizeLevenshtein(m, d) {
-    return (1.0 / Math.exp(d / (m - d)))
-} */
 
 // create html card for contract from contract object
 function createContractCard(contract) {
@@ -108,14 +69,16 @@ async function init() {
     //listen for types search
     searchBox.addEventListener("input", searchContracts);
     // listen for click filter
-    
+    abcNav.addEventListener("click", searchABC);
     //update all contracts
     setContractsContent(contracts);
 }
 //------------THIS IS THE MAIN FUCTION HERE-----------------------------
 
 async function searchContracts(event) {
- 
+   contractsContainer.innerHTML = ""
+    statusContainer.textContent = ""
+    
     const searchText = event.target.value;
        console.log("search triggered = " + searchText);
     if (!searchText || searchText.length == 0) {
@@ -138,5 +101,29 @@ async function searchContracts(event) {
     
     setContractsContent(filteredContracts);
 }
+
+function searchABC(e) {
+             contractsContainer.innerHTML = ""
+             statusContainer.textContent = ""
+             
+            let testName = e.target.innerText
+         
+            let afterArr = contracts.filter(beforeArr => beforeArr.Tab === testName);
+            if (afterArr.length == 0 && testName != "All") {
+                  
+            
+                setDisplayNone()
+            }else if (afterArr.length == 0 && testName == "All"){
+               
+                 setContractsContent(contracts);
+              
+            }else{
+             
+               setContractsContent(afterArr);
+            }
+        }
+    
+
+
 
 init();
