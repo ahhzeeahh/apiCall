@@ -1,0 +1,177 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cycling Navigation Bar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+    }
+
+    /* --- Navigation Specific Styles --- */
+    .sub-navigation {
+        /* Base styling for the whole bar */
+        border-bottom: 3px solid #3b82f6;
+    }
+
+    /* The inner container acts as the fixed viewport */
+    .inner-sub-navigation {
+        /* Tailwind classes: max-w-[1200px] mx-auto relative overflow-hidden flex items-center */
+    }
+
+    /* The UL is the element that scrolls */
+    #subnav-list {
+        display: flex; /* Ensures all items stay on one line */
+        white-space: nowrap; /* Prevents text wrapping */
+        /* Smooth animation for the translation */
+        transition: transform 0.5s ease-in-out;
+        /* Padding to allow the scroll button to sit over it */
+        padding-right: 4rem; 
+    }
+
+    .nav-item {
+        /* Ensure items don't shrink */
+        flex-shrink: 0; 
+        padding: 0 0.5rem;
+    }
+
+    .nav-link {
+        /* Tailwind: text-white hover:text-blue-300 transition-colors py-3 block text-sm font-medium */
+    }
+
+    /* Scroll Controls Positioning and Styling */
+    .nav-scroll-controls {
+        /* Tailwind: absolute right-0 top-0 bottom-0 flex items-center bg-gray-900/70 pr-4 */
+        /* Fade effect over the last visible link */
+        box-shadow: -10px 0 10px rgba(17, 24, 39, 0.7);
+        z-index: 20;
+    }
+
+    .nav-scroll-btn {
+        /* Tailwind: bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition */
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.absolute{position:absolute}.relative{position:relative}.bottom-0{bottom:0px}.right-0{right:0px}.top-0{top:0px}.mx-auto{margin-left:auto;margin-right:auto}.block{display:block}.flex{display:flex}.h-16{height:4rem}.w-full{width:100%}.max-w-\[1200px\]{max-width:1200px}.items-center{align-items:center}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:9999px}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-gray-800\/80{background-color:rgb(31 41 55 / 0.8)}.p-2{padding:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pr-4{padding-right:1rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-medium{font-weight:500}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:text-blue-400:hover{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}</style></head>
+<body>
+
+<nav id="scrollNavBar" aria-label="internal navigation" class="sub-navigation bg-gray-800 text-white shadow-lg w-full" role="region">
+    <!-- Inner container acts as the viewport, hiding horizontal overflow -->
+    <div class="inner-sub-navigation max-w-[1200px] mx-auto relative overflow-hidden flex items-center h-16">
+        
+        <!-- The list of navigation items that will be translated -->
+        <ul id="subnav-list" class="flex space-x-6">
+            
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="applications.html">Applications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="projects/elevation.html">Elevation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="contact-us.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Aftercare Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Before Hours Access</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Test 5 - Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Test 3 - Reporting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Extra LONG TITLE here</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Administration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Compliance &amp; Audits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">User Settings</a>
+            </li>
+            <!-- Added a few extra items to ensure scrolling is necessary -->
+
+        </ul>
+        
+        <!-- Scroll Button Control (positioned absolutely on the right) -->
+        <div class="nav-scroll-controls absolute right-0 top-0 bottom-0 flex items-center bg-gray-800/80 pr-4">
+            <button class="nav-scroll-btn bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition" id="subnav-next-btn">
+                →
+            </button>
+        </div>
+        
+    </div>
+</nav>
+
+<!-- The cycling content from the previous request is removed to focus on the navigation -->
+
+  <script>
+    let subNav = document.getElementById('scrollNavBar');
+    let subNavButton = document.getElementById('subnav-next-btn');
+    document.addEventListener('DOMContentLoaded', () => {
+      // Target the UL element that contains the links
+      const list = document.getElementById('subnav-list');
+      // Target the 'Next' button
+      const nextButton = document.getElementById('subnav-next-btn');
+      // Target the viewport (the element that hides the overflow)
+      const wrapper = document.querySelector('.inner-sub-navigation'); 
+      
+      // Safety check for elements
+      if (!list || !nextButton || !wrapper) {
+          console.error("Navigation elements not found. Check IDs and classes.");
+          return;
+      }
+      
+      let currentScrollPos = 0;
+      // Scroll step: based on approximately 2-3 links, adjust as needed. 
+      // Using a percentage ensures it scales somewhat with screen size.
+      const scrollStep = wrapper.clientWidth * 0.35; 
+
+      function cycleNavItems() {
+        // Calculate the maximum width the list can be scrolled
+        const maxScroll = list.scrollWidth - wrapper.clientWidth;
+
+        // If the content fits without scrolling, reset and exit
+        if (maxScroll <= 0) {
+            currentScrollPos = 0;
+            list.style.transform = `translateX(0px)`;
+            return;
+        }
+
+        const nextPos = currentScrollPos + scrollStep;
+
+        if (nextPos >= maxScroll) {
+          // If we are at the end or exceed it, cycle back to the start (0)
+          currentScrollPos = 0;
+        } else {
+          // Otherwise, move to the next step
+          currentScrollPos = nextPos;
+        }
+
+        // Apply the CSS translation
+        list.style.transform = `translateX(-${currentScrollPos}px)`;
+      }
+
+      nextButton.addEventListener('click', cycleNavItems);
+    });
+  </script>
+
+
+</body></html>
