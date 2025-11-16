@@ -50,75 +50,179 @@
         button.character-element.active{
             color: #ccc;
         }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+    }
 
+    /* --- Navigation Specific Styles --- */
+    .sub-navigation {
+        /* Base styling for the whole bar */
+        border-bottom: 3px solid #3b82f6;
+    }
+
+    /* The inner container acts as the fixed viewport */
+    .inner-sub-navigation {
+        /* Tailwind classes: max-w-[1200px] mx-auto relative overflow-hidden flex items-center */
+    }
+
+    /* The UL is the element that scrolls */
+    #subnav-list {
+        display: flex; /* Ensures all items stay on one line */
+        white-space: nowrap; /* Prevents text wrapping */
+        /* Smooth animation for the translation */
+        transition: transform 0.5s ease-in-out;
+        /* Padding to allow the scroll button to sit over it */
+        padding-right: 4rem; 
+    }
+
+    .nav-item {
+        /* Ensure items don't shrink */
+        flex-shrink: 0; 
+        padding: 0 0.5rem;
+    }
+
+    .nav-link {
+        /* Tailwind: text-white hover:text-blue-300 transition-colors py-3 block text-sm font-medium */
+    }
+
+    /* Scroll Controls Positioning and Styling */
+    .nav-scroll-controls {
+        /* Tailwind: absolute right-0 top-0 bottom-0 flex items-center bg-gray-900/70 pr-4 */
+        /* Fade effect over the last visible link */
+        box-shadow: -10px 0 10px rgba(17, 24, 39, 0.7);
+        z-index: 20;
+    }
+
+    .nav-scroll-btn {
+        /* Tailwind: bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition */
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+  
     </style>
 </head>
 <body>
-    <nav aria-label="internal navigation" class="sub-navigation navbar-expand-sm navbar-inverse navbar-dark" role="region">
-    <div class="container-md inner-sub-navigation">
-        <ul class="nav navbar-nav sub-nav-fade">
-                                                       
-                      
-                      <li class="nav-item">
-                                     <a class="nav-link" href="applications.html">Applications</a>
-                            </li>  
-                    
-                                                       
-                      
-                      <li class="nav-item">
-                                     <a class="nav-link" href="projects/elevation.html">Elevation</a>
-                            </li>  
-                    
-                                                       
-                      
-                      <li class="nav-item">
-                                     <a class="nav-link" href="contact-us.html">Contact Us</a>
-                            </li>  
-                    
-                                                       
-                                                                                                        
-                            
-                             <li class="nav-item">
-                                     <a class="nav-link" href="acc.com" target="_blank">after</a>
-                            </li>  
-                    
-                                                       
-                                                                                                        
-                            
-                             <li class="nav-item">
-                                     <a class="nav-link" href="acc.com" target="_blank">Before</a>
-                            </li>  
-                    
-                                                       
-                                                                                                        
-                            
-                             <li class="nav-item">
-                                     <a class="nav-link" href="acc.com" target="_blank">Test 5</a>
-                            </li>  
-                    
-                                                       
-                                                                                                        
-                            
-                             <li class="nav-item">
-                                     <a class="nav-link" href="acc.com" target="_blank">Test 3</a>
-                            </li>  
-                    
-                                                       
-                                                                                                        
-                            
-                             <li class="nav-item">
-                                     <a class="nav-link" href="acc.com" target="_blank">Extra LONGTITLE here</a>
-                            </li>  
-                    
-                    </ul>
-         <div class="nav-scroll-controls">
-            <button class="nav-scroll-btn" id="subnav-next-btn">
-                <i class="bi bi-chevron-right"></i>
+
+<section>
+
+<nav id="scrollNavBar" aria-label="internal navigation" class="sub-navigation bg-gray-800 text-white shadow-lg w-full" role="region">
+    <!-- Inner container acts as the viewport, hiding horizontal overflow -->
+    <div class="inner-sub-navigation max-w-[1200px] mx-auto relative overflow-hidden flex items-center h-16">
+        
+        <!-- The list of navigation items that will be translated -->
+        <ul id="subnav-list" class="flex space-x-6">
+            
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="applications.html">Applications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="projects/elevation.html">Elevation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="contact-us.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Aftercare Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Before Hours Access</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Test 5 - Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Test 3 - Reporting</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Extra LONG TITLE here</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Administration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">Compliance & Audits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white hover:text-blue-400 transition-colors py-3 block text-sm font-medium" href="acc.com" target="_blank">User Settings</a>
+            </li>
+            <!-- Added a few extra items to ensure scrolling is necessary -->
+
+        </ul>
+        
+        <!-- Scroll Button Control (positioned absolutely on the right) -->
+        <div class="nav-scroll-controls absolute right-0 top-0 bottom-0 flex items-center bg-gray-800/80 pr-4">
+            <button class="nav-scroll-btn bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition" id="subnav-next-btn">
+                &rarr;
             </button>
         </div>
         
     </div>
 </nav>
+
+<!-- The cycling content from the previous request is removed to focus on the navigation -->
+
+  <script>
+    let subNav = document.getElementById('scrollNavBar');
+    let subNavButton = document.getElementById('subnav-next-btn');
+    document.addEventListener('DOMContentLoaded', () => {
+      // Target the UL element that contains the links
+      const list = document.getElementById('subnav-list');
+      // Target the 'Next' button
+      const nextButton = document.getElementById('subnav-next-btn');
+      // Target the viewport (the element that hides the overflow)
+      const wrapper = document.querySelector('.inner-sub-navigation'); 
+      
+      // Safety check for elements
+      if (!list || !nextButton || !wrapper) {
+          console.error("Navigation elements not found. Check IDs and classes.");
+          return;
+      }
+      
+      let currentScrollPos = 0;
+      // Scroll step: based on approximately 2-3 links, adjust as needed. 
+      // Using a percentage ensures it scales somewhat with screen size.
+      const scrollStep = wrapper.clientWidth * 0.35; 
+
+      function cycleNavItems() {
+        // Calculate the maximum width the list can be scrolled
+        const maxScroll = list.scrollWidth - wrapper.clientWidth;
+
+        // If the content fits without scrolling, reset and exit
+        if (maxScroll <= 0) {
+            currentScrollPos = 0;
+            list.style.transform = `translateX(0px)`;
+            return;
+        }
+
+        const nextPos = currentScrollPos + scrollStep;
+
+        if (nextPos >= maxScroll) {
+          // If we are at the end or exceed it, cycle back to the start (0)
+          currentScrollPos = 0;
+        } else {
+          // Otherwise, move to the next step
+          currentScrollPos = nextPos;
+        }
+
+        // Apply the CSS translation
+        list.style.transform = `translateX(-${currentScrollPos}px)`;
+      }
+
+      nextButton.addEventListener('click', cycleNavItems);
+    });
+  </script>
+
+</section>
     <section class="container-md my-5 dir-contracts-wrapper">
         <h2>Pre-Qualified Geospatial Providers</h2>
         <div class="row align-items-center">
